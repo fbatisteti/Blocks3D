@@ -10,13 +10,6 @@ public class GameFlow : MonoBehaviour
     public GameObject blocksSpawned;
     public List<GameObject> blocks;
 
-    public GameObject rotateArrowBack;
-    public GameObject rotateArrowFront;
-    public GameObject rotateArrowLeft;
-    public GameObject rotateArrowRight;
-    public GameObject rotateArrowClock;
-    public GameObject rotateArrowAnticlock;
-
     public GameObject outerWallBack;
     public GameObject outerWallFront;
     public GameObject outerWallRight;
@@ -46,7 +39,7 @@ public class GameFlow : MonoBehaviour
     void Update()
     {
         // drop
-        if (Input.GetKeyDown(KeyCode.Space) && moveDone == true && allowMove == true)
+        if (Input.GetKeyDown(KeyCode.X) && moveDone == true && allowMove == true)
         {
             allowMove = false;
             StartCoroutine(MoveBlockDown(movingBlock));
@@ -184,16 +177,6 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    private void ToggleRotationButtons(bool status)
-    {
-        rotateArrowBack.SetActive(status);
-        rotateArrowFront.SetActive(status);
-        rotateArrowLeft.SetActive(status);
-        rotateArrowRight.SetActive(status);
-        rotateArrowClock.SetActive(status);
-        rotateArrowAnticlock.SetActive(status);
-    }
-
     private void SpawnFirstBlock()
     {
         int i;
@@ -229,7 +212,6 @@ public class GameFlow : MonoBehaviour
         while (GetLowestCube(block).transform.position.y > 0 && !ThereAreBlocksBelow(block))
         {
             moveDone = false;
-            ToggleRotationButtons(false);
             block.transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
             yield return null;
         }
@@ -241,7 +223,6 @@ public class GameFlow : MonoBehaviour
         allowMove = true;
 
         SpawnBlock();
-        ToggleRotationButtons(true);
     }
 
     private void MoveBlockAround(GameObject block, string direction)
